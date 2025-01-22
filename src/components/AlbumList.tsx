@@ -1,9 +1,13 @@
+import { useCallback, useState } from 'react';
 import { useSuspenseQuery } from '@tanstack/react-query';
 import AlbumRepository from '../repository/AlbumRepository';
 import { formatDate } from '../util/formatDate';
 import AlbumItem from './AlbumItem';
+import BottomSheet from './BottomSheet';
+import SwitchButton from './SwitchButton';
 
 export default function AlbumList() {
+  const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const { data } = useSuspenseQuery({
     queryKey: ['albumlist'],
     queryFn: AlbumRepository.getAlbumList,
@@ -22,15 +26,30 @@ export default function AlbumList() {
   }));
 
   const totalAlbumCount = data.album_list.reduce((sum, album) => sum + album.count, 0); // 전체 갯수
+  const totalTypeCount = data.album_list.reduce(
+    (sum, album) => sum + album.published_album_list.length,
+    0
+  );
+
+  const handleBottomSheetOpen = useCallback(() => {
+    setBottomSheetOpen(true);
+  }, []);
+
+  const handleBottomSheetClose = useCallback(() => {
+    setBottomSheetOpen(false);
+  }, []);
 
   return (
     <>
       <div className="flex flex-row items-center justify-between">
         <p>
           <span className="text-sm text-[#6C6C6C]">전체 {totalAlbumCount}</span>
-          <span className="ml-2 text-[13px] text-[#A5A5A5]">(타입 7 수량 9)</span>
+          <span className="ml-2 text-[13px] text-[#A5A5A5]">(타입 {totalTypeCount} 수량 9)</span>
         </p>
-        <span>순서 변경</span>
+        <div className="flex" onClick={handleBottomSheetOpen}>
+          <SwitchButton />
+          <span className="text-sm text-[#6C6C6C]">순서 변경</span>
+        </div>
       </div>
       <ul className="mt-2">
         {albumData.map((album) => (
@@ -45,6 +64,7 @@ export default function AlbumList() {
           />
         ))}
       </ul>
+      <BottomSheet open={bottomSheetOpen} onClose={handleBottomSheetClose} />
     </>
   );
 }
