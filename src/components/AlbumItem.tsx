@@ -1,4 +1,4 @@
-export default function CardItem() {
+export default function AlbumItem() {
   return (
     <li className="flex h-[85px] w-full items-center justify-between">
       <div className="h-full">

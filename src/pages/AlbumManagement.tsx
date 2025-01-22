@@ -1,4 +1,4 @@
-import CardList from '../components/CardList';
+import AlbumList from '../components/AlbumList';
 import CloseButton from '../components/CloseButton';
 import InnerLayout from '../components/InnerLayout';
 
@@ -10,7 +10,7 @@ export default function AlbumManagement() {
     >
       <div className="h-[8px] w-full bg-[#F5F5F5]"></div>
       <div className="h-full w-full bg-white p-4">
-        <CardList />
+        <AlbumList />
       </div>
     </InnerLayout>
   );
