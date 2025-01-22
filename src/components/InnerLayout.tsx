@@ -14,9 +14,9 @@ export default function InnerLayout({
   headerRight,
 }: InnerLayoutProps) {
   return (
-    <>
+    <div className="flex h-full w-full flex-col">
       <Header left={headerLeft} right={headerRight} />
-      <div className={`flex-1 px-5 ${className}`}>{children}</div>
-    </>
+      <div className={`flex h-full flex-col ${className ?? ''}`}>{children}</div>
+    </div>
   );
 }
