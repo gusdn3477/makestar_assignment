@@ -26,18 +26,12 @@ const Carousel = () => {
       {albumList.map((album) => (
         <div key={album.id}>
           <div className="flex items-center justify-center">
-            <img
-              src={album.nfcImageUrl || ''}
-              alt="image"
-              className="rounded-2xl object-contain"
-              width={64}
-              height={64}
-            />
+            <img src={album.nfcImageUrl || ''} alt="image" className="rounded-2xl object-contain" />
           </div>
-          <section className="flex flex-col items-center justify-center">
-            <strong>{album.title}</strong>
-            <span>{album.artistName}</span>
-            <span>{formatDate(album.releaseDate)}</span>
+          <section className="mt-6 flex flex-col items-center justify-center">
+            <strong className="text-xl">{album.title}</strong>
+            <span className="text-[#6C6C6C]">{album.artistName}</span>
+            <span className="text-sm text-[#6C6C6C]">{formatDate(album.releaseDate)}</span>
           </section>
         </div>
       ))}
