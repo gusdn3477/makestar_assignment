@@ -5,7 +5,7 @@ import InnerLayout from '../components/InnerLayout';
 export default function AlbumManagement() {
   return (
     <InnerLayout
-      headerLeft={<h1 className="m-0 bg-red-400 text-sm">앨범관리</h1>}
+      headerLeft={<h1 className="m-0 text-sm">앨범관리</h1>}
       headerRight={<CloseButton />}
     >
       <div className="h-[8px] w-full bg-[#F5F5F5]"></div>
