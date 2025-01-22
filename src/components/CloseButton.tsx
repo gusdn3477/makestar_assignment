@@ -1,6 +1,17 @@
-export default function CloseButton() {
+import { useNavigate } from 'react-router-dom';
+
+interface CloseButtonProps {
+  onClick?: () => void;
+}
+
+export default function CloseButton({ onClick }: CloseButtonProps) {
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    onClick ? onClick() : navigate(-1);
+  };
   return (
-    <button onClick={() => console.log('zz')}>
+    <button onClick={handleBackClick} className="flex items-center">
       <svg
         width="16"
         height="16"
