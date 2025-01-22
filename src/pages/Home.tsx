@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom';
+import Carousel from '../components/Carousel';
 import Chip from '../components/Chip';
 import InnerLayout from '../components/InnerLayout';
 
@@ -17,7 +18,9 @@ export default function Home() {
         </>
       }
     >
-      <main>바디</main>
+      <main>
+        <Carousel />
+      </main>
     </InnerLayout>
   );
 }
