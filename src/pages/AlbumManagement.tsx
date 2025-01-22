@@ -8,10 +8,10 @@ export default function AlbumManagement() {
       headerLeft={<h1 className="m-0 text-sm">앨범관리</h1>}
       headerRight={<CloseButton />}
     >
-      <div className="h-[8px] w-full bg-[#F5F5F5]"></div>
-      <div className="h-full w-full bg-white p-4">
+      <div className="h-[8px] w-full bg-[#F5F5F5]" />
+      <main className="h-full w-full bg-white p-4">
         <AlbumList />
-      </div>
+      </main>
     </InnerLayout>
   );
 }

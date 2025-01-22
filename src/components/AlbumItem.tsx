@@ -17,19 +17,17 @@ export default function AlbumItem({
   albumCount,
 }: AlbumItemProps) {
   return (
-    <li className="flex h-[85px] w-full items-center justify-between">
+    <li className="mt-3 flex h-[85px] w-full items-center">
       <img src={imageUrl} alt="" width={54} height={85} className="rounded-sm" />
-      <div className="h-full flex-1 items-center justify-between">
-        <span className="text-sm">{title}</span>
-        <br />
-        <span className="text-xs text-[#6C6C6C]">
+      <section className="ml-3 flex h-full flex-col justify-center">
+        <p className="text-sm">{title}</p>
+        <p className="text-xs text-[#6C6C6C]">
           {artistName} / {releaseDate}
-        </span>
-        <br />
-        <span className="text-[11px] text-[#A5A5A5]">
-          {typeCount} / {albumCount}
-        </span>
-      </div>
+        </p>
+        <p className="text-[11px] text-[#A5A5A5]">
+          타입 : {typeCount} / 수량 : {albumCount}
+        </p>
+      </section>
     </li>
   );
 }

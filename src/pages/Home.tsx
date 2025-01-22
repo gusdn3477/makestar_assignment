@@ -17,7 +17,7 @@ export default function Home() {
         </>
       }
     >
-      <div>바디</div>
+      <main>바디</main>
     </InnerLayout>
   );
 }
