@@ -43,8 +43,10 @@ export default function AlbumList() {
     <>
       <div className="flex flex-row items-center justify-between">
         <p>
-          <span className="text-sm text-[#6C6C6C]">전체 {totalAlbumCount}</span>
-          <span className="ml-2 text-[13px] text-[#A5A5A5]">(타입 {totalTypeCount} 수량 9)</span>
+          <span className="text-sm text-[#6C6C6C]">전체 {data.album_list.length}</span>
+          <span className="ml-2 text-[13px] text-[#A5A5A5]">
+            (타입 {totalTypeCount} 수량 {totalAlbumCount})
+          </span>
         </p>
         <div className="flex" onClick={handleBottomSheetOpen}>
           <SwitchButton />
