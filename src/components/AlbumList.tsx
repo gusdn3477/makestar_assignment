@@ -21,7 +21,7 @@ export default function AlbumList() {
   }, []);
 
   return (
-    <>
+    <main className="h-full w-full bg-white p-4">
       <div className="flex flex-row items-center justify-between">
         <p>
           <span className="text-sm text-[#6C6C6C]">전체 {albumList.length}</span>
@@ -48,6 +48,6 @@ export default function AlbumList() {
         ))}
       </ul>
       <BottomSheet open={bottomSheetOpen} onClose={handleBottomSheetClose} />
-    </>
+    </main>
   );
 }

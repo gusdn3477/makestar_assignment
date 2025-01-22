@@ -34,9 +34,7 @@ export default function AlbumManagement() {
       headerRight={<CloseButton />}
     >
       <div className="h-[8px] w-full bg-[#F5F5F5]" />
-      <main className="h-full w-full bg-white p-4">
-        <AlbumList />
-      </main>
+      <AlbumList />
     </InnerLayout>
   );
 }
