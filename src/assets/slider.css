@@ -10,3 +10,7 @@
   opacity: 1; /* 중앙 슬라이드는 완전히 보임 */
   transform: scale(1); /* 중앙 슬라이드는 원래 크기 */
 }
+
+.slick-track {
+  background-color: white;
+}
