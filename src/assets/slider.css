@@ -1,0 +1,12 @@
+.slick-slide {
+  transition:
+    transform 0.3s ease,
+    opacity 0.3s ease;
+  opacity: 0.5; /* 기본적으로 옆 슬라이드는 반투명 */
+  transform: scale(0.8); /* 옆 슬라이드는 축소 */
+}
+
+.slick-center {
+  opacity: 1; /* 중앙 슬라이드는 완전히 보임 */
+  transform: scale(1); /* 중앙 슬라이드는 원래 크기 */
+}
