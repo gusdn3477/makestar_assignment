@@ -32,6 +32,7 @@ export default function AlbumManagement() {
     <InnerLayout
       headerLeft={<h1 className="m-0 text-sm">앨범관리</h1>}
       headerRight={<CloseButton />}
+      className="overflow-y-hidden"
     >
       <div className="h-[8px] w-full bg-[#F5F5F5]" />
       <AlbumList />

@@ -67,7 +67,7 @@ export default function AlbumList() {
           <span className="text-sm text-[#6C6C6C]">순서 변경</span>
         </div>
       </div>
-      <ul className="mt-2">
+      <ul className="mt-2 max-h-[calc(100%-50px)] overflow-y-scroll">
         {getFilteredData().map((album) => (
           <AlbumItem
             key={album.id}
