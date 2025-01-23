@@ -16,7 +16,7 @@ export default function InnerLayout({
   return (
     <div className="flex h-full w-full flex-col">
       <Header left={headerLeft} right={headerRight} />
-      <div className={`flex h-full flex-col ${className ?? ''}`}>{children}</div>
+      <div className={`flex-1 flex-col ${className ?? ''}`}>{children}</div>
     </div>
   );
 }
