@@ -1,11 +1,14 @@
 import React from 'react';
+import checkIcon from '../assets/checkIcon.svg';
 
 interface BottomSheetProps {
   open: boolean;
+  options: { id: number; name: string; checked: boolean }[];
   onClose: () => void;
+  onChange: (id: number) => void;
 }
 
-const BottomSheet: React.FC<BottomSheetProps> = ({ open, onClose }) => {
+const BottomSheet: React.FC<BottomSheetProps> = ({ open, onClose, options, onChange }) => {
   return (
     <>
       {open && (
@@ -19,8 +22,16 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ open, onClose }) => {
             </div>
             <div className="mt-4">
               <ul>
-                <li className="h-[56px]">최신 발매일 순</li>
-                <li className="h-[56px]">앨범 이름 순</li>
+                {options.map((option) => (
+                  <li
+                    key={option.id}
+                    className={`flex h-[56px] items-center justify-between text-sm ${option.checked && 'text-[#FF0099]'}`}
+                    onClick={() => onChange(option.id)}
+                  >
+                    <span>{option.name}</span>
+                    {option.checked && <img src={checkIcon} alt="checked" />}
+                  </li>
+                ))}
               </ul>
             </div>
           </div>

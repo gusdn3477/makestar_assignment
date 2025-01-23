@@ -7,6 +7,27 @@ import SwitchButton from './SwitchButton';
 
 export default function AlbumList() {
   const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
+  const [options, setOptions] = useState([
+    { id: 1, name: '최신 발매일 순', checked: true },
+    { id: 2, name: '앨범 이름 순', checked: false },
+  ]);
+
+  // const selectedOption = options.find((option) => option.checked);
+
+  const handleOptionChange = (id: number) => {
+    const updatedOptions = options.map((option) =>
+      option.id === id
+        ? {
+            ...option,
+            checked: true,
+          }
+        : {
+            ...option,
+            checked: false,
+          }
+    );
+    setOptions(updatedOptions);
+  };
   const albumList = useAlbumStore((state) => state.albumList);
 
   const totalAlbumCount = albumList.reduce((sum, album) => sum + album.albumCount, 0); // 전체 갯수
@@ -47,7 +68,12 @@ export default function AlbumList() {
           />
         ))}
       </ul>
-      <BottomSheet open={bottomSheetOpen} onClose={handleBottomSheetClose} />
+      <BottomSheet
+        open={bottomSheetOpen}
+        options={options}
+        onClose={handleBottomSheetClose}
+        onChange={handleOptionChange}
+      />
     </main>
   );
 }
