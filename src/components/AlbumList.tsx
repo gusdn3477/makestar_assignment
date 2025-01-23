@@ -77,6 +77,7 @@ export default function AlbumList() {
             artistName={album.artistName}
             typeCount={album.typeCount}
             albumCount={album.albumCount}
+            isDownloaded={album.isDownloaded}
           />
         ))}
       </ul>

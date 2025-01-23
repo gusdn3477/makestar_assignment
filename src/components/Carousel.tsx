@@ -21,9 +21,11 @@ const Carousel = () => {
     arrows: false,
   };
 
+  const downloadList = albumList.filter((album) => album.isDownloaded === true);
+
   return (
     <MySlider {...settings}>
-      {albumList.map((album) => (
+      {downloadList.map((album) => (
         <div key={album.id}>
           <div className="flex items-center justify-center">
             <img

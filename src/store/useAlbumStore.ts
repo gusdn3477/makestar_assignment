@@ -30,7 +30,14 @@ export const useAlbumStore = create<AlbumStore>()(
       albumList: [],
 
       // 앨범 리스트 설정
-      setAlbumList: (albums) => set({ albumList: albums }),
+      setAlbumList: (albums) =>
+        set((state) => ({
+          albumList: albums.map((album) => ({
+            ...album,
+            isDownloaded:
+              state.albumList.find((item) => item.id === album.id)?.isDownloaded ?? false,
+          })),
+        })),
 
       // 앨범 추가
       addAlbum: (album) =>
