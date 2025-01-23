@@ -18,7 +18,7 @@ export default function AlbumItem({
 }: AlbumItemProps) {
   return (
     <li className="mt-3 flex h-[85px] w-full items-center">
-      <img src={imageUrl} alt="" width={54} height={85} className="rounded-sm" />
+      <img src={imageUrl} alt={title} className="h-[85px] w-[54px] rounded-sm" />
       <section className="ml-3 flex h-full flex-col justify-center">
         <p className="text-sm">{title}</p>
         <p className="text-xs text-[#6C6C6C]">
