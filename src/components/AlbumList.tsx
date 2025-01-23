@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import _ from 'lodash';
 import { useAlbumStore } from '../store';
 import { formatDate } from '../util/formatDate';
 import AlbumItem from './AlbumItem';
@@ -11,8 +12,23 @@ export default function AlbumList() {
     { id: 1, name: '최신 발매일 순', checked: true },
     { id: 2, name: '앨범 이름 순', checked: false },
   ]);
+  const albumList = useAlbumStore((state) => state.albumList);
 
-  // const selectedOption = options.find((option) => option.checked);
+  const totalAlbumCount = albumList.reduce((sum, album) => sum + album.albumCount, 0); // 전체 갯수
+  const totalTypeCount = albumList.reduce((sum, album) => sum + album.typeCount, 0);
+
+  const getFilteredData = () => {
+    const selectedOption = options.filter((option) => option.checked === true)[0];
+    const copiedAlbumList = _.cloneDeep(albumList);
+    if (selectedOption.id === 1) {
+      copiedAlbumList.sort(
+        (a, b) => new Date(a.releaseDate).getTime() - new Date(b.releaseDate).getTime()
+      );
+    } else {
+      copiedAlbumList.sort((a, b) => a.title.localeCompare(b.title));
+    }
+    return copiedAlbumList;
+  };
 
   const handleOptionChange = (id: number) => {
     const updatedOptions = options.map((option) =>
@@ -28,10 +44,6 @@ export default function AlbumList() {
     );
     setOptions(updatedOptions);
   };
-  const albumList = useAlbumStore((state) => state.albumList);
-
-  const totalAlbumCount = albumList.reduce((sum, album) => sum + album.albumCount, 0); // 전체 갯수
-  const totalTypeCount = albumList.reduce((sum, album) => sum + album.typeCount, 0);
 
   const handleBottomSheetOpen = useCallback(() => {
     setBottomSheetOpen(true);
@@ -56,7 +68,7 @@ export default function AlbumList() {
         </div>
       </div>
       <ul className="mt-2">
-        {albumList.map((album) => (
+        {getFilteredData().map((album) => (
           <AlbumItem
             key={album.id}
             title={album.title}
