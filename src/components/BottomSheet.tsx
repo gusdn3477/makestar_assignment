@@ -3,12 +3,12 @@ import checkIcon from '../assets/checkIcon.svg';
 
 interface BottomSheetProps {
   open: boolean;
-  options: { id: number; name: string; checked: boolean }[];
+  options: { id: number; name: string; checked?: boolean }[];
   onClose: () => void;
-  onChange: (id: number) => void;
+  onClick: (id: number) => void;
 }
 
-const BottomSheet: React.FC<BottomSheetProps> = ({ open, onClose, options, onChange }) => {
+const BottomSheet: React.FC<BottomSheetProps> = ({ open, onClose, options, onClick }) => {
   return (
     <>
       {open && (
@@ -26,7 +26,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ open, onClose, options, onCha
                   <li
                     key={option.id}
                     className={`flex h-[56px] items-center justify-between text-sm ${option.checked && 'text-[#FF0099]'}`}
-                    onClick={() => onChange(option.id)}
+                    onClick={() => onClick(option.id)}
                   >
                     <span>{option.name}</span>
                     {option.checked && <img src={checkIcon} alt="checked" />}

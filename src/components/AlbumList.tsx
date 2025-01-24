@@ -1,18 +1,29 @@
-import { useCallback, useState } from 'react';
+import { useState } from 'react';
 import _ from 'lodash';
-import { useAlbumStore } from '../store';
+import { useAlbumStore, useBottomSheetStore } from '../store';
 import { formatDate } from '../util/formatDate';
 import AlbumItem from './AlbumItem';
 import BottomSheet from './BottomSheet';
 import SwitchButton from './SwitchButton';
 
 export default function AlbumList() {
-  const [bottomSheetOpen, setBottomSheetOpen] = useState(false);
   const [options, setOptions] = useState([
     { id: 1, name: '최신 발매일 순', checked: true },
     { id: 2, name: '앨범 이름 순', checked: false },
   ]);
+
   const albumList = useAlbumStore((state) => state.albumList);
+  const selectedAlbum = useAlbumStore((state) => state.selectedAlbum);
+  const handleSelectAlbum = useAlbumStore((state) => state.setAlbum);
+
+  const sortBottomSheetOpen = useBottomSheetStore((state) => state.visible['sort']);
+  const downloadBottomSheetOpen = useBottomSheetStore((state) => state.visible['download']);
+  const handleBottomSheetOpen = useBottomSheetStore((state) => state.handleOpen);
+  const handleBottomSheetClose = useBottomSheetStore((state) => state.handleClose);
+
+  const threeDotOptions = selectedAlbum.isDownloaded
+    ? [{ id: selectedAlbum.id, name: '삭제하기' }]
+    : [{ id: selectedAlbum.id, name: '다운로드' }];
 
   const totalAlbumCount = albumList.reduce((sum, album) => sum + album.albumCount, 0); // 전체 갯수
   const totalTypeCount = albumList.reduce((sum, album) => sum + album.typeCount, 0);
@@ -30,7 +41,7 @@ export default function AlbumList() {
     return copiedAlbumList;
   };
 
-  const handleOptionChange = (id: number) => {
+  const handleOptionClick = (id: number) => {
     const updatedOptions = options.map((option) =>
       option.id === id
         ? {
@@ -45,13 +56,11 @@ export default function AlbumList() {
     setOptions(updatedOptions);
   };
 
-  const handleBottomSheetOpen = useCallback(() => {
-    setBottomSheetOpen(true);
-  }, []);
-
-  const handleBottomSheetClose = useCallback(() => {
-    setBottomSheetOpen(false);
-  }, []);
+  const handleThreeDotOptionClick = (id: number) => {
+    if (selectedAlbum.isDownloaded) console.log('삭제 함수');
+    else console.log('다운로드');
+    handleSelectAlbum({ id: -1, isDownloaded: false });
+  };
 
   return (
     <main className="h-full w-full bg-white p-4">
@@ -62,7 +71,7 @@ export default function AlbumList() {
             (타입 {totalTypeCount} 수량 {totalAlbumCount})
           </span>
         </p>
-        <div className="flex" onClick={handleBottomSheetOpen}>
+        <div className="flex" onClick={() => handleBottomSheetOpen('sort')}>
           <SwitchButton />
           <span className="text-sm text-[#6C6C6C]">순서 변경</span>
         </div>
@@ -71,6 +80,7 @@ export default function AlbumList() {
         {getFilteredData().map((album) => (
           <AlbumItem
             key={album.id}
+            id={album.id}
             title={album.title}
             releaseDate={formatDate(album.releaseDate)}
             imageUrl={album.nfcImageUrl || ''}
@@ -82,10 +92,16 @@ export default function AlbumList() {
         ))}
       </ul>
       <BottomSheet
-        open={bottomSheetOpen}
+        open={sortBottomSheetOpen}
         options={options}
-        onClose={handleBottomSheetClose}
-        onChange={handleOptionChange}
+        onClose={() => handleBottomSheetClose('sort')}
+        onClick={handleOptionClick}
+      />
+      <BottomSheet
+        open={downloadBottomSheetOpen}
+        options={threeDotOptions}
+        onClose={() => handleBottomSheetClose('download')}
+        onClick={handleThreeDotOptionClick}
       />
     </main>
   );
