@@ -21,7 +21,11 @@ export default function Home() {
         </>
       }
     >
-      <main className="flex h-full w-full items-center justify-center">
+      <main
+        className={
+          downloadAlbumList.length === 0 ? 'flex h-full w-full items-center justify-center' : ''
+        }
+      >
         {downloadAlbumList.length === 0 ? (
           <span>다운로드 목록이 비어 있습니다. </span>
         ) : (
