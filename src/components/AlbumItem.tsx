@@ -43,16 +43,16 @@ export default function AlbumItem({
           className={`h-[85px] w-[54px] rounded-sm ${isDownloaded ? '' : 'blur-[1px]'}`}
         />
         <section className="ml-3 flex h-full w-3/4 flex-col justify-center">
-          <p className={`text-sm ${isDownloaded ? '' : 'text-[#A5A5A5]'}`}>{title}</p>
+          <p className={`truncate text-sm ${isDownloaded ? '' : 'text-[#A5A5A5]'}`}>{title}</p>
           {isLoading ? (
-            <Loader size={20} />
+            <Loader size={15} />
           ) : (
             <>
               <p className={`text-xs ${isDownloaded ? 'text-[#6C6C6C]' : 'text-[#A5A5A5]'}`}>
-                {artistName} / {releaseDate}
+                {artistName} • {releaseDate}
               </p>
               <p className="text-[11px] text-[#A5A5A5]">
-                타입 : {typeCount} / 수량 : {albumCount}
+                타입 : {typeCount} • 수량 : {albumCount}
               </p>
             </>
           )}
