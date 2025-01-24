@@ -34,8 +34,10 @@ const Carousel = () => {
               className="h-[457px] w-[290px] rounded-2xl"
             />
           </div>
-          <section className="mt-6 flex flex-col items-center justify-center">
-            <strong className="text-xl">{album.title}</strong>
+          <section className="mt-3 flex flex-col items-center justify-center">
+            <div className="flex w-full justify-center">
+              <strong className="truncate text-xl">{album.title}</strong>
+            </div>
             <span className="text-[#6C6C6C]">{album.artistName}</span>
             <span className="text-sm text-[#6C6C6C]">{formatDate(album.releaseDate)}</span>
           </section>
