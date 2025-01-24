@@ -12,7 +12,7 @@ const Carousel = () => {
   const albumList = useAlbumStore((state) => state.albumList);
 
   const settings = {
-    infinite: true, // 무한 루프
+    infinite: !!(albumList.length === 1), // 무한 루프
     speed: 500, // 슬라이드 속도
     slidesToShow: 1, // 한 번에 보여줄 슬라이드 수
     slidesToScroll: 1, // 한 번에 스크롤할 슬라이드 수
