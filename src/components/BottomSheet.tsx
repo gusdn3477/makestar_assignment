@@ -9,6 +9,11 @@ interface BottomSheetProps {
 }
 
 const BottomSheet: React.FC<BottomSheetProps> = ({ open, onClose, options, onClick }) => {
+  const handleOptionClick = (id: number) => {
+    onClick(id);
+    onClose();
+  };
+
   return (
     <>
       {open && (
@@ -26,7 +31,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({ open, onClose, options, onCli
                   <li
                     key={option.id}
                     className={`flex h-[56px] items-center justify-between text-sm ${option.checked && 'text-[#FF0099]'}`}
-                    onClick={() => onClick(option.id)}
+                    onClick={() => handleOptionClick(option.id)}
                   >
                     <span>{option.name}</span>
                     {option.checked && <img src={checkIcon} alt="checked" />}
