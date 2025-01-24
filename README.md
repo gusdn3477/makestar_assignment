@@ -93,7 +93,7 @@ src/
 
 ### **1. 라우팅 구성**
 
-- `react-router-dom`의 `useNavigate` 및 `useParams`를 활용하여 라우팅을 구현했습니다.
+- `react-router-dom` 사용
 
 ### **2. 상태 관리 및 API 연동**
 
