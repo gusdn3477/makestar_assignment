@@ -1,4 +1,5 @@
 import { useAlbumStore, useBottomSheetStore } from '../store';
+import Loader from './Loader';
 import ThreeDot from './ThreeDot';
 
 // 다양한 아이템 데이터가 있는 경우
@@ -11,6 +12,7 @@ interface AlbumItemProps {
   typeCount: number;
   albumCount: number;
   isDownloaded?: boolean;
+  isLoading?: boolean;
 }
 
 export default function AlbumItem({
@@ -22,6 +24,7 @@ export default function AlbumItem({
   typeCount,
   albumCount,
   isDownloaded,
+  isLoading,
 }: AlbumItemProps) {
   const handleBottomSheetOpen = useBottomSheetStore((state) => state.handleOpen);
   const handleAlbumSelect = useAlbumStore((state) => state.setAlbum);
@@ -41,12 +44,18 @@ export default function AlbumItem({
         />
         <section className="ml-3 flex h-full w-3/4 flex-col justify-center">
           <p className={`text-sm ${isDownloaded ? '' : 'text-[#A5A5A5]'}`}>{title}</p>
-          <p className={`text-xs ${isDownloaded ? 'text-[#6C6C6C]' : 'text-[#A5A5A5]'}`}>
-            {artistName} / {releaseDate}
-          </p>
-          <p className="text-[11px] text-[#A5A5A5]">
-            타입 : {typeCount} / 수량 : {albumCount}
-          </p>
+          {isLoading ? (
+            <Loader size={20} />
+          ) : (
+            <>
+              <p className={`text-xs ${isDownloaded ? 'text-[#6C6C6C]' : 'text-[#A5A5A5]'}`}>
+                {artistName} / {releaseDate}
+              </p>
+              <p className="text-[11px] text-[#A5A5A5]">
+                타입 : {typeCount} / 수량 : {albumCount}
+              </p>
+            </>
+          )}
         </section>
       </div>
       <div>
