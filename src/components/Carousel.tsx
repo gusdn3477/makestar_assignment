@@ -12,12 +12,12 @@ const Carousel = () => {
   const albumList = useAlbumStore((state) => state.albumList);
 
   const settings = {
-    infinite: !!(albumList.length === 1), // 무한 루프
+    infinite: false,
     speed: 500, // 슬라이드 속도
     slidesToShow: 1, // 한 번에 보여줄 슬라이드 수
     slidesToScroll: 1, // 한 번에 스크롤할 슬라이드 수
     centerMode: true, // 현재 슬라이드를 가운데 정렬
-    centerPadding: '20px', // 양쪽에 보일 카드의 너비
+    centerPadding: '60px', // 양쪽에 보일 카드의 너비
     arrows: false,
   };
 
@@ -26,7 +26,7 @@ const Carousel = () => {
   return (
     <MySlider {...settings}>
       {downloadList.map((album) => (
-        <div key={album.id}>
+        <div key={album.id} className="mt-12">
           <div className="flex items-center justify-center">
             <img
               src={album.nfcImageUrl || ''}
