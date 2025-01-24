@@ -18,7 +18,9 @@ interface Album {
 
 interface AlbumStore {
   albumList: Album[];
+  selectedAlbum: { id: number; isDownloaded: boolean };
   setAlbumList: (albums: Album[]) => void;
+  setAlbum: (album: { id: number; isDownloaded: boolean }) => void;
   addAlbum: (album: Album) => void;
   updateAlbum: (id: number, updatedData: Partial<Album>) => void;
   removeAlbum: (id: number) => void;
@@ -28,7 +30,10 @@ export const useAlbumStore = create<AlbumStore>()(
   persist(
     (set) => ({
       albumList: [],
-
+      selectedAlbum: {
+        id: -1,
+        isDownloaded: false,
+      },
       // 앨범 리스트 설정
       setAlbumList: (albums) =>
         set((state) => ({
@@ -38,7 +43,7 @@ export const useAlbumStore = create<AlbumStore>()(
               state.albumList.find((item) => item.id === album.id)?.isDownloaded ?? false,
           })),
         })),
-
+      setAlbum: (album) => set({ selectedAlbum: album }),
       // 앨범 추가
       addAlbum: (album) =>
         set((state) => ({
