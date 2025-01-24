@@ -16,7 +16,6 @@ export default function AlbumList() {
 
   const albumList = useAlbumStore((state) => state.albumList);
   const selectedAlbum = useAlbumStore((state) => state.selectedAlbum);
-  const downloadAlbumList = useAlbumStore((state) => state.downloadedAlbumList);
   const handleAlbumSelect = useAlbumStore((state) => state.setAlbum);
   const handleAlbumUpdate = useAlbumStore((state) => state.updateAlbum);
   const downloadAlbum = useAlbumStore((state) => state.addAlbum);
@@ -47,7 +46,6 @@ export default function AlbumList() {
     return copiedAlbumList;
   };
 
-  console.log('down', downloadAlbumList);
   const handleOptionClick = (id: number) => {
     const updatedOptions = options.map((option) =>
       option.id === id
