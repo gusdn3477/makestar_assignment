@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useMutation } from '@tanstack/react-query';
 import _ from 'lodash';
+import AlbumRepository from '../repository/AlbumRepository';
 import { useAlbumStore, useBottomSheetStore } from '../store';
 import { formatDate } from '../util/formatDate';
 import AlbumItem from './AlbumItem';
@@ -14,16 +16,17 @@ export default function AlbumList() {
 
   const albumList = useAlbumStore((state) => state.albumList);
   const selectedAlbum = useAlbumStore((state) => state.selectedAlbum);
-  const handleSelectAlbum = useAlbumStore((state) => state.setAlbum);
+  const handleAlbumSelect = useAlbumStore((state) => state.setAlbum);
+  const handleAlbumUpdate = useAlbumStore((state) => state.updateAlbum);
 
   const sortBottomSheetOpen = useBottomSheetStore((state) => state.visible['sort']);
   const downloadBottomSheetOpen = useBottomSheetStore((state) => state.visible['download']);
   const handleBottomSheetOpen = useBottomSheetStore((state) => state.handleOpen);
   const handleBottomSheetClose = useBottomSheetStore((state) => state.handleClose);
 
-  const threeDotOptions = selectedAlbum.isDownloaded
-    ? [{ id: selectedAlbum.id, name: '삭제하기' }]
-    : [{ id: selectedAlbum.id, name: '다운로드' }];
+  const threeDotOptions = [
+    { id: selectedAlbum.id, name: selectedAlbum.isDownloaded ? '삭제하기' : '다운로드' },
+  ];
 
   const totalAlbumCount = albumList.reduce((sum, album) => sum + album.albumCount, 0); // 전체 갯수
   const totalTypeCount = albumList.reduce((sum, album) => sum + album.typeCount, 0);
@@ -56,10 +59,22 @@ export default function AlbumList() {
     setOptions(updatedOptions);
   };
 
-  const handleThreeDotOptionClick = (id: number) => {
-    if (selectedAlbum.isDownloaded) console.log('삭제 함수');
-    else console.log('다운로드');
-    handleSelectAlbum({ id: -1, isDownloaded: false });
+  const handleAlbumDownload = useMutation({
+    mutationFn: async () => AlbumRepository.getAlbumDownloadInfo({ album_id: selectedAlbum.id }),
+    onSuccess: () => {
+      // 작업 성공 시 실행
+      handleAlbumUpdate(selectedAlbum.id, { isDownloaded: true });
+    },
+    onError: (error) => {
+      // 작업 실패 시 실행
+      console.error('Error:', error);
+    },
+  });
+
+  const handleThreeDotOptionClick = async (id: number) => {
+    if (selectedAlbum.isDownloaded) handleAlbumUpdate(id, { isDownloaded: false });
+    else await handleAlbumDownload.mutateAsync();
+    handleAlbumSelect({ id: -1, isDownloaded: false });
   };
 
   return (
