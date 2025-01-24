@@ -1,50 +1,117 @@
-# React + TypeScript + Vite
+# **포카앨범 프로젝트**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## **소개**
 
-Currently, two official plugins are available:
+포카앨범 프로젝트는 사용자가 포토카드 앨범을 정리하고 관리할 수 있도록 돕는 웹 애플리케이션입니다. 사용자는 포토카드를 조회, 다운로드, 삭제할 수 있으며, 앨범의 통계를 확인할 수 있습니다.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## **기능**
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+1. **포토카드 관리**
 
-- Configure the top-level `parserOptions` property like this:
+   - 포토카드 추가: 사용자가 원하는 포토카드를 다운로드하여 홈 화면에서 볼 수 있습니다.
+   - 포토카드 삭제: 잘못 추가된 포토카드를 삭제할 수 있습니다.
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+2. **통계 기능**
+
+   - 앨범에 등록된 포토카드의 총 개수
+   - 등록된 포토카드의 시리즈별 통계
+
+3. **데이터 저장 및 유지**
+
+   - 브라우저를 종료해도 기존 데이터 유지
+   - 로컬 스토리지 활용
+
+---
+
+## **기술 스택**
+
+1. **라우팅**
+
+   - react-router-dom을 활용하여 다음과 같은 페이지 구성:
+     - 홈: Carousel 바탕으로 다운로드된 앨범 조회
+     - 앨범: 포토카드 리스트 조회 / 다운로드 / 삭제 기능
+
+2. **상태 관리**
+
+   - Zustand를 활용하여 전역 상태 관리
+   - persist 함수 사용하여 로컬 스토리지와 데이터 동기화
+
+3. **리액트 쿼리 활용**
+
+   - 데이터 페칭 및 캐싱 최적화
+
+---
+
+## **설치 및 실행**
+
+### **필수 요구사항**
+
+- Node.js 최소 18 버전 이상
+- 패키지 매니저: npm, yarn, pnpm 등..
+
+### **설치 과정**
+
+1. 프로젝트를 clone 혹은 main branch에서 pull 받습니다.
+
+   ```bash
+   git clone [프로젝트 URL]
+   ```
+
+2. 프로젝트 폴더로 이동 후 패키지를 설치합니다.
+
+   ```bash
+   cd [프로젝트 폴더]
+   yarn (or npm install)
+   ```
+
+3. Vite 개발 서버를 실행합니다.
+
+   ```bash
+   yarn dev (or npm start)
+   ```
+
+4. 브라우저에서 `http://localhost:5173`으로 접속합니다.
+
+---
+
+## **폴더 구조**
+
+```plaintext
+src/
+├── components/       # 재사용 가능한 UI 컴포넌트
+├── pages/            # 각 페이지 컴포넌트
+├── store/            # Zustand를 활용한 상태 관리
+├── api/              # React Query와 API 연동
+└── utils/            # 유틸리티 함수
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+---
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+## **문제 해결 방법**
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### **1. 라우팅 구성**
+
+- `react-router-dom`의 `useNavigate` 및 `useParams`를 활용하여 라우팅을 구현했습니다.
+
+### **2. 상태 관리 및 API 연동**
+
+- `Zustand`로 포토카드 목록 및 통계 데이터를 전역으로 관리하였습니다.
+- 데이터 페칭 및 캐싱은 `React Query`를 활용하여 최적화하였습니다.
+
+---
+
+## **문제 해결 사례**
+
+---
+
+## **기술 스택**
+
+- **Frontend:** React, Vite
+- **State Management:** Zustand
+- **Data Fetching:** @tanstack/react-query
+- **Styling:** tailwindCss
+- **Backend:** json-server
+
+---
