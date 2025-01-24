@@ -70,6 +70,7 @@
 
    ```bash
    yarn dev (or npm start)
+   --host 명렁을 통한 ip 접속도 지원됩니다.
    ```
 
 4. 브라우저에서 `http://localhost:5173`으로 접속합니다.
