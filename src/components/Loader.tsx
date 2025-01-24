@@ -1,9 +1,15 @@
 import React from 'react';
 
-const Loader: React.FC = () => {
+const Spinner: React.FC<{ size?: number }> = ({ size = 48 }) => {
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-gray-100">
-      <div className="relative h-12 w-12">
+    <div className="relative flex h-full w-full items-center justify-center">
+      <div
+        className="relative"
+        style={{
+          width: size,
+          height: size,
+        }}
+      >
         <div
           className="absolute inset-0 animate-spin rounded-full border-4 border-pink-500 border-t-transparent"
           style={{
@@ -16,4 +22,4 @@ const Loader: React.FC = () => {
   );
 };
 
-export default Loader;
+export default Spinner;
