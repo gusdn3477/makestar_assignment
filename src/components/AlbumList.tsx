@@ -16,8 +16,11 @@ export default function AlbumList() {
 
   const albumList = useAlbumStore((state) => state.albumList);
   const selectedAlbum = useAlbumStore((state) => state.selectedAlbum);
+  const downloadAlbumList = useAlbumStore((state) => state.downloadedAlbumList);
   const handleAlbumSelect = useAlbumStore((state) => state.setAlbum);
   const handleAlbumUpdate = useAlbumStore((state) => state.updateAlbum);
+  const downloadAlbum = useAlbumStore((state) => state.addAlbum);
+  const removeAlbum = useAlbumStore((state) => state.removeAlbum);
 
   const sortBottomSheetOpen = useBottomSheetStore((state) => state.visible['sort']);
   const downloadBottomSheetOpen = useBottomSheetStore((state) => state.visible['download']);
@@ -44,6 +47,7 @@ export default function AlbumList() {
     return copiedAlbumList;
   };
 
+  console.log('down', downloadAlbumList);
   const handleOptionClick = (id: number) => {
     const updatedOptions = options.map((option) =>
       option.id === id
@@ -61,9 +65,10 @@ export default function AlbumList() {
 
   const handleAlbumDownload = useMutation({
     mutationFn: async () => AlbumRepository.getAlbumDownloadInfo({ album_id: selectedAlbum.id }),
-    onSuccess: () => {
+    onSuccess: (data) => {
       // 작업 성공 시 실행
       handleAlbumUpdate(selectedAlbum.id, { isDownloaded: true });
+      data.album && downloadAlbum(data.album);
     },
     onError: (error) => {
       // 작업 실패 시 실행
@@ -72,8 +77,12 @@ export default function AlbumList() {
   });
 
   const handleThreeDotOptionClick = async (id: number) => {
-    if (selectedAlbum.isDownloaded) handleAlbumUpdate(id, { isDownloaded: false });
-    else await handleAlbumDownload.mutateAsync();
+    if (selectedAlbum.isDownloaded) {
+      handleAlbumUpdate(id, { isDownloaded: false });
+      removeAlbum(id);
+    } else {
+      await handleAlbumDownload.mutateAsync();
+    }
     handleAlbumSelect({ id: -1, isDownloaded: false });
   };
 
@@ -103,6 +112,7 @@ export default function AlbumList() {
             typeCount={album.typeCount}
             albumCount={album.albumCount}
             isDownloaded={album.isDownloaded}
+            isLoading={selectedAlbum.id === album.id && handleAlbumDownload.isPending}
           />
         ))}
       </ul>
