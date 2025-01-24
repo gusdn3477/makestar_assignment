@@ -11,7 +11,7 @@ class AlbumRepository {
     return data;
   }
 
-  async getAlbumDownloadList({
+  async getAlbumDownloadInfo({
     album_id,
   }: GetDownloadInformationByAlbumIdRequest): Promise<GetDownloadInformationByAlbumIdResponse> {
     const { data } = await API.post('get_download_information_by_album_id/', { album_id });
