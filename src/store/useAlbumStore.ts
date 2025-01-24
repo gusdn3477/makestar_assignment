@@ -1,5 +1,6 @@
 import { create } from 'zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
+import { Album as AlbumDetail } from '../dto/AlbumDTO';
 import { ImageFile } from '../types/ImageFile';
 
 interface Album {
@@ -18,10 +19,11 @@ interface Album {
 
 interface AlbumStore {
   albumList: Album[];
+  downloadedAlbumList: AlbumDetail[];
   selectedAlbum: { id: number; isDownloaded: boolean };
   setAlbumList: (albums: Album[]) => void;
   setAlbum: (album: { id: number; isDownloaded: boolean }) => void;
-  addAlbum: (album: Album) => void;
+  addAlbum: (album: AlbumDetail) => void;
   updateAlbum: (id: number, updatedData: Partial<Album>) => void;
   removeAlbum: (id: number) => void;
 }
@@ -30,6 +32,7 @@ export const useAlbumStore = create<AlbumStore>()(
   persist(
     (set) => ({
       albumList: [],
+      downloadedAlbumList: [],
       selectedAlbum: {
         id: -1,
         isDownloaded: false,
@@ -44,11 +47,6 @@ export const useAlbumStore = create<AlbumStore>()(
           })),
         })),
       setAlbum: (album) => set({ selectedAlbum: album }),
-      // 앨범 추가
-      addAlbum: (album) =>
-        set((state) => ({
-          albumList: [...state.albumList, album],
-        })),
 
       // 앨범 업데이트
       updateAlbum: (id, updatedData) =>
@@ -58,10 +56,16 @@ export const useAlbumStore = create<AlbumStore>()(
           ),
         })),
 
+      // 앨범 추가
+      addAlbum: (album) =>
+        set((state) => ({
+          downloadedAlbumList: [...state.downloadedAlbumList, album],
+        })),
+
       // 앨범 삭제
       removeAlbum: (id) =>
         set((state) => ({
-          albumList: state.albumList.filter((album) => album.id !== id),
+          downloadedAlbumList: state.downloadedAlbumList.filter((album) => album.id !== id),
         })),
     }),
     {
