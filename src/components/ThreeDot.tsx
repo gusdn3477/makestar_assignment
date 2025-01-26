@@ -1,5 +1,5 @@
 interface ThreeDotProps {
-  onClick: () => void;
+  onClick?: () => void;
 }
 export default function ThreeDot({ onClick }: ThreeDotProps) {
   return (

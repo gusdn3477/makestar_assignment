@@ -12,6 +12,7 @@ interface AlbumItemProps {
   typeCount: number;
   albumCount: number;
   isDownloaded?: boolean;
+  isDownloading?: boolean;
   isLoading?: boolean;
 }
 
@@ -24,12 +25,14 @@ export default function AlbumItem({
   typeCount,
   albumCount,
   isDownloaded,
+  isDownloading,
   isLoading,
 }: AlbumItemProps) {
   const handleBottomSheetOpen = useBottomSheetStore((state) => state.handleOpen);
   const handleAlbumSelect = useAlbumStore((state) => state.setAlbum);
 
   const handleItemClick = (id: number, isDownloaded: boolean) => {
+    if (isLoading) return;
     handleBottomSheetOpen('download');
     handleAlbumSelect({ id, isDownloaded });
   };
@@ -44,8 +47,10 @@ export default function AlbumItem({
         />
         <section className="ml-3 flex h-full w-3/4 flex-col justify-center">
           <p className={`truncate text-sm ${isDownloaded ? '' : 'text-[#A5A5A5]'}`}>{title}</p>
-          {isLoading ? (
-            <Loader size={15} />
+          {isDownloading ? (
+            <div className="flex h-6 w-4 items-center justify-center">
+              <Loader size={15} />
+            </div>
           ) : (
             <>
               <p className={`text-xs ${isDownloaded ? 'text-[#6C6C6C]' : 'text-[#A5A5A5]'}`}>

@@ -110,7 +110,8 @@ export default function AlbumList() {
             typeCount={album.typeCount}
             albumCount={album.albumCount}
             isDownloaded={album.isDownloaded}
-            isLoading={selectedAlbum.id === album.id && handleAlbumDownload.isPending}
+            isDownloading={selectedAlbum.id === album.id && handleAlbumDownload.isPending}
+            isLoading={handleAlbumDownload.isPending}
           />
         ))}
       </ul>
