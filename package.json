@@ -17,7 +17,6 @@
     "react-error-boundary": "^5.0.0",
     "react-router-dom": "6",
     "react-slick": "^0.30.3",
-    "react-window": "^1.8.11",
     "slick-carousel": "^1.8.1",
     "zustand": "^5.0.3"
   },
