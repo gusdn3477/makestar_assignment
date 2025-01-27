@@ -27,17 +27,19 @@ const Carousel = () => {
     <MySlider {...settings}>
       {downloadList.map((album) => (
         <div key={album.id} className="mt-12">
-          <div className="relative flex items-center justify-center">
-            {album.versionCode === 3 && (
-              <div className="absolute right-[15px] top-[12px] flex h-[20px] w-[54px] items-center justify-center rounded-sm bg-[#FF0099] text-[11px] text-white">
-                UPDATE
-              </div>
-            )}
-            <img
-              src={album.nfcImageUrl || ''}
-              alt={album.title}
-              className="h-[457px] w-[290px] rounded-2xl"
-            />
+          <div className="flex items-center justify-center">
+            <div className="relative">
+              {album.versionCode === 3 && (
+                <div className="absolute right-[15px] top-[12px] flex h-[20px] w-[54px] items-center justify-center rounded-sm bg-[#FF0099] text-[11px] text-white">
+                  UPDATE
+                </div>
+              )}
+              <img
+                src={album.nfcImageUrl || ''}
+                alt={album.title}
+                className="h-[457px] w-[290px] rounded-2xl"
+              />
+            </div>
           </div>
           <section className="mt-3 flex flex-col items-center justify-center">
             <div className="flex w-full justify-center">
