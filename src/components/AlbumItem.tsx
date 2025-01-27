@@ -42,17 +42,19 @@ export default function AlbumItem({
   return (
     <li className="mt-3 flex h-[85px] w-full justify-between">
       <div className="flex items-center">
-        <div className="relative h-[85px] w-[54px]">
+        <div className="relative">
           <img
             src={imageUrl}
             alt={title}
             className={`h-[85px] w-[54px] rounded-sm ${isDownloaded ? '' : 'blur-[1px]'}`}
           />
-          <div className="absolute bottom-[3px] rounded bg-black bg-opacity-50 text-sm text-white">
-            텍스트 예제
-          </div>
+          {isDownloaded && isUpdated && (
+            <div className="absolute bottom-[0.5px] flex h-[20px] w-[54px] items-center justify-center rounded-b-sm bg-[#EA369A] text-[11px] text-white">
+              UPDATE
+            </div>
+          )}
         </div>
-        <section className="ml-3 flex h-full w-3/5 flex-col justify-center">
+        <section className="ml-3 flex h-full w-3/4 flex-col justify-center">
           <p className={`truncate text-sm ${isDownloaded ? '' : 'text-[#A5A5A5]'}`}>{title}</p>
           {isDownloading ? (
             <div className="flex h-6 w-4 items-center justify-center">

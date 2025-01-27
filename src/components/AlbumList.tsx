@@ -112,6 +112,8 @@ export default function AlbumList() {
             isDownloaded={album.isDownloaded}
             isDownloading={selectedAlbum.id === album.id && handleAlbumDownload.isPending}
             isLoading={handleAlbumDownload.isPending}
+            // versionCode가 3인 경우를 업데이트 코드라고 가정하였습니다.
+            isUpdated={album.versionCode === 3}
           />
         ))}
       </ul>
