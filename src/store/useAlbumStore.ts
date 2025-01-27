@@ -9,6 +9,7 @@ interface Album {
   releaseDate: string;
   artistName: string;
   artistProfile: ImageFile;
+  versionCode: number;
   typeCount: number;
   albumCount: number;
   nfcImageUrl: string | null;

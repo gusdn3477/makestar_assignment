@@ -14,6 +14,7 @@ interface AlbumItemProps {
   isDownloaded?: boolean;
   isDownloading?: boolean;
   isLoading?: boolean;
+  isUpdated?: boolean;
 }
 
 export default function AlbumItem({
@@ -27,6 +28,7 @@ export default function AlbumItem({
   isDownloaded,
   isDownloading,
   isLoading,
+  isUpdated,
 }: AlbumItemProps) {
   const handleBottomSheetOpen = useBottomSheetStore((state) => state.handleOpen);
   const handleAlbumSelect = useAlbumStore((state) => state.setAlbum);
@@ -40,12 +42,17 @@ export default function AlbumItem({
   return (
     <li className="mt-3 flex h-[85px] w-full justify-between">
       <div className="flex items-center">
-        <img
-          src={imageUrl}
-          alt={title}
-          className={`h-[85px] w-[54px] rounded-sm ${isDownloaded ? '' : 'blur-[1px]'}`}
-        />
-        <section className="ml-3 flex h-full w-3/4 flex-col justify-center">
+        <div className="relative h-[85px] w-[54px]">
+          <img
+            src={imageUrl}
+            alt={title}
+            className={`h-[85px] w-[54px] rounded-sm ${isDownloaded ? '' : 'blur-[1px]'}`}
+          />
+          <div className="absolute bottom-[3px] rounded bg-black bg-opacity-50 text-sm text-white">
+            텍스트 예제
+          </div>
+        </div>
+        <section className="ml-3 flex h-full w-3/5 flex-col justify-center">
           <p className={`truncate text-sm ${isDownloaded ? '' : 'text-[#A5A5A5]'}`}>{title}</p>
           {isDownloading ? (
             <div className="flex h-6 w-4 items-center justify-center">
@@ -63,7 +70,7 @@ export default function AlbumItem({
           )}
         </section>
       </div>
-      <div>
+      <div className="w-[10px]">
         <ThreeDot onClick={() => handleItemClick(id, !!isDownloaded)} />
       </div>
     </li>

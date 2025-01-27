@@ -19,6 +19,7 @@ export default function AlbumManagement() {
         artistName: album.artist.name, // 가수 이름 (그룹 이름)
         artistProfile: album.artist.profile_image || null, // 가수 프로필 사진 (필드가 없으니 null 처리)
         typeCount: album.published_album_list.length, // 타입 개수
+        versionCode: album.version_code,
         albumCount: album.count, // 앨범 수량
         nfcImageUrl: album.published_album_list[0]?.nfc_image_url || null, // NFC 이미지 URL
         boxImageUrl: album.published_album_list[0]?.box_image_url || null, // 박스 이미지 URL
