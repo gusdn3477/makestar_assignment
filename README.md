@@ -51,13 +51,15 @@
    yarn (or npm install)
    ```
 
-3. Vite 개발 서버를 실행합니다.
+3. .env 파일 생성 후 VITE_API_TOKEN={API key 값}을 추가합니다.
+
+4. Vite 개발 서버를 실행합니다.
 
    ```bash
    yarn dev (or npm start)
    ```
 
-4. 브라우저에서 `http://localhost:5173`으로 접속합니다. (--host 옵션을 통한 ip 주소를 통한 접속도 지원됩니다.)
+5. 브라우저에서 `http://localhost:5173`으로 접속합니다. (--host 옵션을 통한 ip 주소를 통한 접속도 지원됩니다.)
 
 ## **폴더 구조**
 
