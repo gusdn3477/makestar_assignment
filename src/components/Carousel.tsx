@@ -30,7 +30,7 @@ const Carousel = () => {
           <div className="flex items-center justify-center">
             <div className="relative">
               {album.versionCode === 3 && (
-                <div className="absolute right-[15px] top-[12px] flex h-[20px] w-[54px] items-center justify-center rounded-sm bg-[#FF0099] text-[11px] text-white">
+                <div className="absolute right-[15px] top-[12px] flex h-[20px] w-[54px] items-center justify-center rounded-[3px] bg-[#FF0099] text-[11px] text-white">
                   UPDATE
                 </div>
               )}
